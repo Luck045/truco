@@ -139,11 +139,10 @@ class ClientApp:
     # ================= Actions =================
 
     def fill_demo(self):
-        # atalho pra testar sem ficar digitando
         self.user_entry.delete(0, tk.END)
         self.pass_entry.delete(0, tk.END)
         self.user_entry.insert(0, "teste")
-        self.pass_entry.insert(0, "Senha12345")
+        self.pass_entry.insert(0, "12345")
 
     def do_register(self):
         u = self.user_entry.get().strip()
@@ -156,7 +155,6 @@ class ClientApp:
         self.send_ws({"type": "login", "user": u, "pass": p})
 
     def logout(self):
-        # Como não implementamos "session token" ainda, logout é só resetar UI local
         self.role = None
         self.username = None
         self.room = None
@@ -229,7 +227,6 @@ class ClientApp:
 
         elif t == "error":
             self.show_error(data.get("message", "Erro desconhecido"))
-            # se não está logado, mantém na tela de auth e deixa tentar de novo
             if not self.role:
                 self.go_to_auth()
 
